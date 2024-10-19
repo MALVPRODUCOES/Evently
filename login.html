@@ -5,41 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .login-container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Login</h1>
-    </header>
-    <main>
+    <div class="login-container">
+        <h2>Login</h2>
         <form id="loginForm">
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">Entrar</button>
+            <input type="text" id="username" placeholder="Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button type="submit" class="button">Entrar</button>
         </form>
-        <div id="message" style="color:red; margin-top: 10px;"></div>
-    </main>
+    </div>
 
     <script>
         document.getElementById('loginForm').onsubmit = function(event) {
-            event.preventDefault(); // Evita o envio do formulário
+            event.preventDefault();
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Exemplo de credenciais (você pode modificar conforme necessário)
-            const validUsername = 'Administrador';
-            const validPassword = '123456';
-
-            // Valida as credenciais
-            if (username === validUsername && password === validPassword) {
-                // Redireciona para a página principal após o login
-                window.location.href = 'event.html';
+            // Simulando uma autenticação (você pode substituir com lógica real)
+            if (username === 'admin' && password === 'admin123') {
+                // Armazena o status de login no localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Redireciona para a página inicial
+                window.location.href = 'index.html'; // Substitua por sua página inicial
             } else {
-                document.getElementById('message').innerText = 'Usuário ou senha inválidos!';
+                alert('Usuário ou senha incorretos');
             }
         };
     </script>
