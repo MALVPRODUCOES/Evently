@@ -35,6 +35,22 @@
             border-radius: 5px;
         }
 
+        .password-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        #showPassword {
+            position: absolute;
+            right: 10px;
+            top: 12px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 16px;
+        }
+
         .button {
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -42,6 +58,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
         }
 
         .button:hover {
@@ -54,25 +71,45 @@
         <h2>Login</h2>
         <form id="loginForm">
             <input type="text" id="username" placeholder="Usuário" required>
-            <input type="password" id="password" placeholder="Senha" required>
+            
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Senha" required>
+                <button type="button" id="showPassword">Mostrar</button>
+            </div>
+            
             <button type="submit" class="button">Entrar</button>
         </form>
     </div>
 
     <script>
+        // Função para mostrar ou esconder a senha
+        document.getElementById('showPassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const showPasswordButton = document.getElementById('showPassword');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                showPasswordButton.textContent = 'Esconder';
+            } else {
+                passwordInput.type = 'password';
+                showPasswordButton.textContent = 'Mostrar';
+            }
+        });
+
+        // Função para processar o login
         document.getElementById('loginForm').onsubmit = function(event) {
             event.preventDefault();
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Simulando uma autenticação (você pode substituir com lógica real)
+            // Simulação de autenticação (pode ser substituída por lógica real)
             if (username === 'admin' && password === 'admin123') {
                 // Armazena o status de login no localStorage
                 localStorage.setItem('isLoggedIn', 'true');
                 
                 // Redireciona para a página inicial
-                window.location.href = 'index.html'; // Substitua por sua página inicial
+                window.location.href = 'index.html'; // Substitua pela página inicial desejada
             } else {
                 alert('Usuário ou senha incorretos');
             }
