@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ler Ingressos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Ler Ingressos</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="event.html">Página do Evento</a></li>
+            <li><a href="generate-tickets.html">Gerar Ingressos</a></li>
+            <li><a href="read-tickets.html">Ler Ingressos</a></li>
+            <li><a href="view-read-tickets.html">Ingressos Já Lidos</a></li>
+            <li><a href="profile.html">Meu Perfil</a></li>
+        </ul>
+    </nav>
+    <main>
+        <button id="startButton">Iniciar Leitura do QR Code</button>
+        <button id="readAnotherButton" style="display:none;">Ler Outro Código</button>
+        <div id="reader" style="width:500px; display:none;"></div>
+        <div id="result"></div>
+    </main>
+
+    <script>
+        let html5QrCode;
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Exibe o resultado
+            document.getElementById('result').innerText = `QR Code Lido: ${decodedText}`;
+
+            const validTickets = ["Ticket-abc123", "Ticket-xyz456"];
+            if (validTickets.includes(decodedText)) {
+                document.getElementById('result').innerText += " - Ingresso Válido!";
+                
+                // Redireciona para a página de ingressos já lidos
+                setTimeout(() => {
+                    window.location.href = "view-read-tickets.html"; // Substitua pelo caminho correto se necessário
+                }, 2000); // Aguarda 2 segundos antes de redirecionar
+            } else {
+                document.getElementById('result').innerText += " - Ingresso Inválido!";
+            }
+
+            // Mostra o botão para ler outro código
+            document.getElementById('readAnotherButton').style.display = 'block';
+
+            // Para o scanner
+            html5QrCode.stop().then(() => {
+                console.log("Scanner parado após a leitura.");
+            }).catch(err => {
+                console.error("Erro ao parar o scanner: ", err);
+            });
+        }
+
+        function onScanFailure(error) {
+            console.warn(`Erro na leitura do QR Code: ${error}`);
+        }
+
+        document.getElementById('startButton').addEventListener('click', function() {
+            document.getElementById('reader').style.display = 'block';
+            document.getElementById('readAnotherButton').style.display = 'none'; // Esconde o botão "ler outro código"
+
+            html5QrCode = new Html5Qrcode("reader");
+
+            html5QrCode.start(
+                { facingMode: "environment" },
+                {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 }
+                },
+                onScanSuccess,
+                onScanFailure
+            ).then(() => {
+                console.log("Scanner iniciado!");
+            }).catch((err) => {
+                console.error(`Erro ao iniciar o scanner: ${err}`);
+            });
+        });
+
+        document.getElementById('readAnotherButton').addEventListener('click', function() {
+            document.getElementById('result').innerText = ""; // Limpa o resultado
+            this.style.display = 'none'; // Esconde o botão "ler outro código"
+            document.getElementById('reader').style.display = 'block'; // Mostra a área de leitura
+
+            // Reinicia o scanner
+            html5QrCode.start(
+                { facingMode: "environment" },
+                {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 }
+                },
+                onScanSuccess,
+                onScanFailure
+            ).then(() => {
+                console.log("Scanner reiniciado!");
+            }).catch((err) => {
+                console.error(`Erro ao reiniciar o scanner: ${err}`);
+            });
+        });
+    </script>
+</body>
+</html>

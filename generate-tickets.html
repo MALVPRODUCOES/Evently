@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Ingressos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Gerar Ingressos</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="event.html">Página do Evento</a></li>
+            <li><a href="generate-tickets.html">Gerar Ingressos</a></li>
+            <li><a href="read-tickets.html">Ler Ingressos</a></li>
+            <li><a href="view-read-tickets.html">Ingressos Já Lidos</a></li>
+            <li><a href="profile.html">Meu Perfil</a></li>
+        </ul>
+    </nav>
+    <main>
+        <form id="ticketForm">
+            <label for="quantity">Quantidade de Ingressos:</label>
+            <input type="number" id="quantity" name="quantity" min="1" required>
+
+            <label for="file">Selecionar Imagem:</label>
+            <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" required>
+
+            <button type="submit">Gerar Ingressos</button>
+        </form>
+
+        <div id="ticketDisplay" style="display:none;">
+            <h2>Ingressos Gerados:</h2>
+            <div id="generatedTickets"></div>
+        </div>
+
+        <canvas id="canvas" style="display:none;"></canvas>
+    </main>
+    
+    <script>
+        document.getElementById('ticketForm').onsubmit = async function(event) {
+            event.preventDefault();
+
+            const quantity = document.getElementById('quantity').value;
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Por favor, selecione um arquivo.');
+                return;
+            }
+
+            const generatedTickets = document.getElementById('generatedTickets');
+            generatedTickets.innerHTML = ''; 
+
+            for (let i = 1; i <= quantity; i++) {
+                const ticketID = 'Ticket-' + (Math.random().toString(36).substr(2, 9));
+
+                // Gera QR Code localmente
+                const qrCodeDiv = document.createElement('div');
+                new QRCode(qrCodeDiv, {
+                    text: ticketID,
+                    width: 200,
+                    height: 200
+                });
+
+                const qrCanvas = qrCodeDiv.querySelector('canvas');
+                const qrCodeURL = qrCanvas.toDataURL();
+
+                // Exibe os ingressos gerados
+                const ticketContainer = document.createElement('div');
+                ticketContainer.innerHTML = `
+                    <p>ID do Ingresso: ${ticketID}</p>
+                    <img src="${qrCodeURL}" alt="QR Code do Ingresso">
+                `;
+                generatedTickets.appendChild(ticketContainer);
+
+                // Insere o QR Code na imagem do ingresso
+                await insertQRCodeIntoImage(file, qrCodeURL, ticketID, ticketContainer);
+            }
+
+            document.getElementById('ticketDisplay').style.display = 'block';
+        };
+
+        async function insertQRCodeIntoImage(file, qrCodeURL, ticketID, ticketContainer) {
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.crossOrigin = "anonymous"; 
+            
+            img.onload = async () => {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // Define o tamanho do canvas
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                // Desenha a imagem no canvas
+                ctx.drawImage(img, 0, 0);
+
+                const qrCodeSize = 200; // Tamanho do QR Code
+
+                // Calcula a posição para centralizar o QR Code
+                const qrCodeX = (img.width - qrCodeSize) / 2; // Centraliza no eixo X
+                const qrCodeY = (img.height - qrCodeSize) / 2; // Centraliza no eixo Y
+
+                // Desenha o QR Code no canvas
+                const qrImg = new Image();
+                qrImg.src = qrCodeURL;
+                qrImg.onload = () => {
+                    ctx.drawImage(qrImg, qrCodeX, qrCodeY, qrCodeSize, qrCodeSize); // Tamanho e posição centralizada
+
+                    // Adiciona o ID do ingresso na imagem
+                    ctx.font = '16px Arial';
+                    ctx.fillStyle = 'black';
+                    ctx.fillText(`ID do Ingresso: ${ticketID}`, qrCodeX, qrCodeY + qrCodeSize + 20); // Texto abaixo do QR Code
+
+                    // Salva a nova imagem
+                    canvas.toBlob(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `${ticketID}.png`;
+                        a.innerText = `Baixar Ingresso: ${ticketID}`;
+                        ticketContainer.appendChild(a); // Anexa o link de download abaixo de cada ingresso
+                    }, 'image/png');
+                };
+            };
+
+            img.onerror = () => {
+                alert('Erro ao carregar a imagem. Por favor, selecione uma imagem válida.');
+            };
+        }
+    </script>
+</body>
+</html>
