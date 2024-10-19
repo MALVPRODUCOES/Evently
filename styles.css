@@ -1,76 +1,108 @@
+/* Estilo Global */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Cor de fundo leve */
     margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
 }
 
+/* Estilo do Cabeçalho */
 header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-h1 {
-    margin: 0;
-}
-
-main {
+    background-color: #4CAF50; /* Cor de fundo do cabeçalho */
+    color: white;
     padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Para garantir que o cabeçalho ocupe toda a largura */
 }
 
-button {
-    padding: 10px 15px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #0056b3;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    background: #f4f4f4;
-}
+/* Estilo do Navegador */
 nav {
-    background-color: #f8f8f8;
-    padding: 10px;
+    margin: 20px 0; /* Margem superior e inferior */
 }
 
 nav ul {
-    list-style-type: none;
+    list-style-type: none; /* Remove os marcadores da lista */
     padding: 0;
 }
 
-nav li {
-    display: inline;
-    margin-right: 15px;
+nav ul li {
+    display: inline; /* Exibe itens de lista em linha */
+    margin: 0 15px; /* Margem entre os itens */
 }
 
-nav a {
-    text-decoration: none;
-    color: #007bff;
+nav ul li a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #4CAF50; /* Cor do texto */
+    font-weight: bold;
 }
 
-nav a:hover {
-    text-decoration: underline;
+nav ul li a:hover {
+    color: #333; /* Muda a cor ao passar o mouse */
+}
+
+/* Estilo do Conteúdo Principal */
+main {
+    max-width: 600px; /* Limita a largura máxima */
+    width: 100%; /* Para que ocupe toda a largura disponível */
+    background-color: white; /* Cor de fundo do conteúdo */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 20px;
+}
+
+/* Formulário */
+form {
+    display: flex;
+    flex-direction: column; /* Coloca os elementos do formulário em coluna */
+}
+
+form label {
+    margin-bottom: 5px; /* Margem inferior para os rótulos */
+}
+
+form input[type="number"],
+form input[type="file"],
+form button {
+    margin-bottom: 15px; /* Margem inferior para inputs e botão */
+    padding: 10px; /* Preenchimento interno */
+    border: 1px solid #ccc; /* Borda leve */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+/* Botão */
+form button {
+    background-color: #4CAF50; /* Cor de fundo do botão */
+    color: white;
+    cursor: pointer; /* Muda o cursor para pointer */
+}
+
+form button:hover {
+    background-color: #45a049; /* Cor de fundo do botão ao passar o mouse */
+}
+
+/* Exibição dos Ingressos */
+#generatedTickets div {
+    margin-bottom: 20px; /* Margem entre os ingressos */
+    text-align: center; /* Centraliza o texto */
+}
+
+#generatedTickets a {
+    display: block; /* Faz com que cada link ocupe uma nova linha */
+    margin-top: 10px; /* Margem superior para links */
+    color: #4CAF50; /* Cor do link */
+}
+
+/* Estilo Responsivo */
+@media (max-width: 600px) {
+    nav ul li {
+        display: block; /* Coloca os itens da navegação em coluna em telas pequenas */
+        margin: 10px 0; /* Margem vertical entre itens */
+    }
+
+    main {
+        margin: 10px; /* Margem para o conteúdo em telas pequenas */
+    }
 }
