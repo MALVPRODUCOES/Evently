@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo Responsivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos de exemplo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meu Sistema de Ingressos</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="event.html">Página do Evento</a></li>
+            <li><a href="generate-tickets.html">Gerar Ingressos</a></li>
+            <li><a href="read-tickets.html">Ler Ingressos</a></li>
+            <li><a href="view-read-tickets.html">Ingressos Já Lidos</a></li>
+            <li><a href="profile.html">Meu Perfil</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Bem-vindo ao Sistema de Ingressos</h2>
+        <p>Selecione uma opção no menu para começar.</p>
+        <img src="exemplo-imagem.jpg" alt="Exemplo">
+    </main>
+</body>
+</html>
