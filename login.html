@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Login</h1>
+    </header>
+    <main>
+        <form id="loginForm">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+        <div id="message" style="color:red; margin-top: 10px;"></div>
+    </main>
+
+    <script>
+        document.getElementById('loginForm').onsubmit = function(event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Exemplo de credenciais (você pode modificar conforme necessário)
+            const validUsername = 'admin';
+            const validPassword = '12345';
+
+            // Valida as credenciais
+            if (username === validUsername && password === validPassword) {
+                // Redireciona para a página principal após o login
+                window.location.href = 'event.html';
+            } else {
+                document.getElementById('message').innerText = 'Usuário ou senha inválidos!';
+            }
+        };
+    </script>
+</body>
+</html>
