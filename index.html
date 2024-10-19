@@ -3,77 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo Responsivo</title>
+    <title>Bem-vindo ao Sistema</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Estilos de exemplo */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-        
-        nav {
-            background-color: #333;
-            padding: 10px;
-        }
-
-        nav ul {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            list-style-type: none;
-            padding: 0;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
         }
 
-        nav ul li {
-            margin: 10px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-        }
-
-        main {
+        .container {
+            text-align: center;
+            background-color: white;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Media Queries */
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                margin: 5px 0;
-            }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        @media only screen and (max-width: 600px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            .button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Meu Sistema de Ingressos</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="event.html">Página do Evento</a></li>
-            <li><a href="generate-tickets.html">Gerar Ingressos</a></li>
-            <li><a href="read-tickets.html">Ler Ingressos</a></li>
-            <li><a href="view-read-tickets.html">Ingressos Já Lidos</a></li>
-            <li><a href="profile.html">Meu Perfil</a></li>
-        </ul>
-    </nav>
-    <main>
-        <h2>Bem-vindo ao Sistema de Ingressos</h2>
-        <p>Selecione uma opção no menu para começar.</p>
-        <img src="exemplo-imagem.jpg" alt="Exemplo">
-    </main>
+    <div class="container">
+        <h1>Bem-vindo ao Sistema de Ingressos</h1>
+        <p>Acesse sua conta para gerenciar seus eventos e ingressos.</p>
+        <a href="login.html" class="button">Login</a>
+    </div>
 </body>
 </html>
