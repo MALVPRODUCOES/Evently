@@ -57,6 +57,7 @@ main {
 form {
     display: flex;
     flex-direction: column; /* Coloca os elementos do formulário em coluna */
+    gap: 20px; /* Define um espaço de 20px entre os elementos */
 }
 
 form label {
